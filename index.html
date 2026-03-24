@@ -3,22 +3,19 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Understanding AI Safety Interest Among Nigerian Students And Young Professionals · AI Safety Hub Nigeria</title>
+  <title>Understanding AI Safety Interest Among Nigerian Students And Young Professionals &middot; AI Safety Hub Nigeria</title>
   <meta name="description" content="A short survey exploring AI safety awareness and barriers among Nigerian students and young professionals. Run by AI Safety Hub Nigeria."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --bg:      #0D1117;
-      --bg2:     #0C1825;
       --card:    #161B22;
       --card2:   #1C2330;
       --border:  #2A3441;
       --teal:    #00A89D;
       --teal-dk: #007A71;
-      --teal-bg: rgba(0,168,157,0.1);
       --gold:    #F0A500;
-      --gold-bg: rgba(240,165,0,0.09);
       --text:    #E6EDF3;
       --muted:   #8B949E;
       --faint:   #3D4F62;
@@ -30,14 +27,15 @@
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 2px; }
 
-    @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes pulse  { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    @keyframes spin   { to{transform:rotate(360deg)} }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pulse  { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+    @keyframes spin   { to { transform:rotate(360deg); } }
 
     .wrap  { min-height: 100vh; padding: 0 16px 80px; }
     .inner { max-width: 680px; margin: 0 auto; }
 
-    .hdr { padding: 48px 0 36px; text-align: center; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
+    /* Header */
+    .hdr       { padding: 48px 0 36px; text-align: center; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
     .org-lbl   { font-size: 11px; letter-spacing: 3px; color: var(--teal); text-transform: uppercase; font-weight: 600; margin-bottom: 12px; }
     .hdr-title { font-family: 'DM Serif Display', serif; font-size: clamp(22px,5vw,36px); line-height: 1.2; margin-bottom: 16px; }
     .hdr-title em { color: var(--teal); font-style: normal; }
@@ -45,29 +43,47 @@
     .badge     { display: inline-flex; align-items: center; gap: 6px; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; font-size: 12px; color: var(--muted); margin: 0 4px 8px; }
     .dot       { width: 6px; height: 6px; border-radius: 50%; animation: pulse 2s infinite; }
 
+    /* Progress */
     .prog-wrap  { margin-bottom: 32px; }
     .prog-label { font-size: 11px; color: var(--muted); text-align: right; margin-bottom: 6px; letter-spacing: 1px; }
     .prog-track { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
     .prog-fill  { height: 100%; background: linear-gradient(90deg, var(--teal), #40BDB7); border-radius: 2px; transition: width .5s ease; }
 
+    /* Card */
     .card      { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 24px; animation: fadeUp .4s ease both; }
     .sec-num   { font-size: 10px; letter-spacing: 3px; color: var(--teal); text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
     .sec-title { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--text); margin-bottom: 10px; }
     .hyp-box   { font-size: 13px; color: var(--muted); line-height: 1.75; padding: 14px 18px; background: rgba(0,168,157,0.07); border-left: 3px solid var(--teal); border-radius: 0 10px 10px 0; margin-bottom: 28px; font-style: italic; }
 
+    /* Questions */
     .qblock { margin-bottom: 28px; }
     .qlabel { font-size: 14px; color: var(--text); font-weight: 500; margin-bottom: 12px; line-height: 1.55; }
-    .qsub   { font-size: 12px; color: var(--muted); margin: -8px 0 12px; }
-    .opt    { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--card2); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; margin-bottom: 8px; transition: all .15s; user-select: none; }
+    .qsub   { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+    .opt-lbl { font-size: 12px; color: var(--faint); font-weight: 400; }
+
+    /* Option rows */
+    .opt {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; background: var(--card2);
+      border: 1px solid var(--border); border-radius: 10px;
+      cursor: pointer; margin-bottom: 8px;
+      transition: border-color .15s, background .15s;
+      user-select: none;
+    }
     .opt:hover    { border-color: var(--teal); }
     .opt.selected { border-color: var(--teal); background: rgba(0,168,157,0.1); }
-    .radio  { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+
+    .radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .15s; }
     .opt.selected .radio { border-color: var(--teal); background: var(--teal); }
-    .radio-dot { width: 6px; height: 6px; border-radius: 50%; background: white; }
-    .cbox  { width: 16px; height: 16px; border-radius: 4px; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: all .15s; margin-top: 1px; }
+    .radio-dot { width: 6px; height: 6px; border-radius: 50%; background: white; display: none; }
+    .opt.selected .radio-dot { display: block; }
+
+    .cbox { width: 16px; height: 16px; border-radius: 4px; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: all .15s; }
     .opt.selected .cbox { border-color: var(--teal); background: var(--teal); color: white; }
+
     .opt-text { font-size: 13px; color: var(--text); flex: 1; line-height: 1.4; }
 
+    /* Scale */
     .scale-row    { display: flex; gap: 6px; }
     .scale-btn    { flex: 1; padding: 10px 4px; background: var(--card2); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-size: 13px; color: var(--muted); font-family: 'DM Sans',sans-serif; transition: all .15s; text-align: center; }
     .scale-btn:hover    { border-color: var(--teal); color: var(--text); }
@@ -75,55 +91,51 @@
     .scale-labels { display: flex; justify-content: space-between; margin-top: 6px; }
     .scale-lbl    { font-size: 10px; color: var(--muted); }
 
-    textarea, select {
-      width: 100%; background: var(--card2); border: 1px solid var(--border);
-      border-radius: 10px; padding: 12px 14px; color: var(--text);
-      font-family: 'DM Sans',sans-serif; font-size: 13px; outline: none;
-      transition: border-color .2s; resize: vertical;
-    }
-    textarea:focus, select:focus { border-color: var(--teal); }
-    textarea { min-height: 80px; line-height: 1.6; }
-    textarea::placeholder { color: var(--faint); }
-    select   { appearance: none; cursor: pointer; line-height: normal; }
-    input[type="email"] {
+    /* Inputs */
+    textarea, select, input[type="email"] {
       width: 100%; background: var(--card2); border: 1px solid var(--border);
       border-radius: 10px; padding: 12px 14px; color: var(--text);
       font-family: 'DM Sans',sans-serif; font-size: 13px; outline: none;
       transition: border-color .2s;
     }
-    input[type="email"]:focus { border-color: var(--teal); }
-    input[type="email"]::placeholder { color: var(--faint); }
+    textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+    textarea:focus, select:focus, input[type="email"]:focus { border-color: var(--teal); }
+    textarea::placeholder, input[type="email"]::placeholder { color: var(--faint); }
+    select { appearance: none; cursor: pointer; }
     .sel-wrap  { position: relative; }
     .sel-arrow { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; font-size: 12px; }
 
-    .nav-row   { display: flex; gap: 12px; margin-top: 8px; }
-    .btn-back  { flex: 1; padding: 14px; background: transparent; border: 1px solid var(--border); border-radius: 12px; color: var(--muted); font-family: 'DM Sans',sans-serif; font-size: 14px; cursor: pointer; transition: all .2s; }
+    /* Buttons */
+    .nav-row  { display: flex; gap: 12px; margin-top: 8px; }
+    .btn-back { flex: 1; padding: 14px; background: transparent; border: 1px solid var(--border); border-radius: 12px; color: var(--muted); font-family: 'DM Sans',sans-serif; font-size: 14px; cursor: pointer; transition: all .2s; }
     .btn-back:hover { border-color: var(--muted); color: var(--text); }
-    .btn-next  { flex: 2; padding: 14px; background: var(--teal); border: none; border-radius: 12px; color: white; font-family: 'DM Sans',sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; }
-    .btn-next:hover:not(:disabled) { background: var(--teal-dk); }
-    .btn-next:disabled { opacity: .38; cursor: not-allowed; }
-    .btn-full  { width: 100%; padding: 16px; background: var(--teal); border: none; border-radius: 12px; color: white; font-family: 'DM Sans',sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all .2s; margin-top: 8px; }
-    .btn-full:hover:not(:disabled) { background: var(--teal-dk); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,168,157,.28); }
-    .btn-full:disabled { opacity: .5; cursor: not-allowed; transform: none; }
-    .spinner   { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.3); border-top-color: white; border-radius: 50%; animation: spin .7s linear infinite; display: inline-block; vertical-align: middle; margin-right: 6px; }
+    .btn-next { flex: 2; padding: 14px; background: var(--teal); border: none; border-radius: 12px; color: white; font-family: 'DM Sans',sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; }
+    .btn-next:hover:not([disabled]) { background: var(--teal-dk); }
+    .btn-next[disabled] { opacity: .38; cursor: not-allowed; }
+    .btn-full { width: 100%; padding: 16px; background: var(--teal); border: none; border-radius: 12px; color: white; font-family: 'DM Sans',sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all .2s; margin-top: 8px; }
+    .btn-full:hover { background: var(--teal-dk); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,168,157,.28); }
+    .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.3); border-top-color: white; border-radius: 50%; animation: spin .7s linear infinite; display: inline-block; vertical-align: middle; margin-right: 6px; }
 
-    .callout      { background: rgba(0,168,157,0.07); border: 1px solid rgba(0,168,157,.22); border-radius: 10px; padding: 16px 20px; margin-bottom: 28px; }
-    .callout-lbl  { font-size: 11px; font-weight: 600; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
-    .callout-text { font-size: 14px; color: var(--muted); line-height: 1.85; }
+    /* Callout */
+    .callout     { background: rgba(0,168,157,0.07); border: 1px solid rgba(0,168,157,.22); border-radius: 10px; padding: 16px 20px; margin-bottom: 28px; }
+    .callout-lbl { font-size: 11px; font-weight: 600; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+    .callout-txt { font-size: 14px; color: var(--muted); line-height: 1.85; }
 
+    /* Success */
     .success-card  { text-align: center; padding: 56px 32px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; animation: fadeUp .4s ease both; }
     .success-ring  { width: 68px; height: 68px; border-radius: 50%; background: rgba(0,168,157,.12); border: 2px solid var(--teal); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 28px; }
-    .success-title { font-family: 'DM Serif Display', serif; font-size: 28px; margin-bottom: 12px; }
-    .success-text  { font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 400px; margin: 0 auto 28px; }
-    .community-box  { background: rgba(0,168,157,.07); border: 1px solid rgba(0,168,157,.2); border-radius: 12px; padding: 18px 20px; margin-bottom: 24px; text-align: left; }
-    .community-lbl  { font-size: 11px; font-weight: 600; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
-    .community-text { font-size: 13px; color: var(--muted); line-height: 1.75; }
-    .btn-teal  { display: inline-block; padding: 11px 22px; background: var(--teal); color: white; border-radius: 10px; font-size: 13px; text-decoration: none; font-family: 'DM Sans',sans-serif; font-weight: 600; }
-    .btn-ghost { display: inline-block; padding: 11px 22px; background: transparent; border: 1px solid var(--border); color: var(--muted); border-radius: 10px; font-size: 13px; text-decoration: none; font-family: 'DM Sans',sans-serif; }
+    .success-ttl   { font-family: 'DM Serif Display', serif; font-size: 28px; margin-bottom: 12px; }
+    .success-txt   { font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 400px; margin: 0 auto 28px; }
+    .comm-box      { background: rgba(0,168,157,.07); border: 1px solid rgba(0,168,157,.2); border-radius: 12px; padding: 18px 20px; margin-bottom: 24px; text-align: left; }
+    .comm-lbl      { font-size: 11px; font-weight: 600; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+    .comm-txt      { font-size: 13px; color: var(--muted); line-height: 1.75; }
+    .btn-teal  { display: inline-block; padding: 11px 22px; background: var(--teal); color: white; border-radius: 10px; font-size: 13px; text-decoration: none; font-weight: 600; }
+    .btn-ghost { display: inline-block; padding: 11px 22px; background: transparent; border: 1px solid var(--border); color: var(--muted); border-radius: 10px; font-size: 13px; text-decoration: none; }
 
-    .footer      { text-align: center; padding-top: 40px; border-top: 1px solid var(--border); margin-top: 40px; }
-    .footer-org  { font-size: 11px; color: var(--faint); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
-    .footer-info { font-size: 12px; color: var(--faint); }
+    /* Footer */
+    .footer     { text-align: center; padding-top: 40px; border-top: 1px solid var(--border); margin-top: 40px; }
+    .footer-org { font-size: 11px; color: var(--faint); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+    .footer-inf { font-size: 12px; color: var(--faint); }
 
     .error-box { font-size: 13px; color: #FF6B6B; padding: 10px 14px; background: rgba(255,107,107,.1); border-radius: 8px; margin-bottom: 12px; }
 
@@ -136,21 +148,17 @@
 </head>
 <body>
 
-<script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzaAK3tW9V-5Wf7lCsR5GQHY67In_brIdJTz4F95ZMkqPhB5b3NYKZjKw8JVxLO82w7lQ/exec";
-</script>
-
 <div class="wrap">
 <div class="inner">
 
   <div class="hdr">
-    <div class="org-lbl">AI Safety Hub Nigeria · APEx Programme</div>
+    <div class="org-lbl">AI Safety Hub Nigeria &middot; APEx Programme</div>
     <h1 class="hdr-title">Understanding AI Safety Interest Among <em>Nigerian Students &amp; Young Professionals</em></h1>
     <p class="hdr-sub">This short survey helps us understand why Nigerians with genuine interest in AI safety often do not make it into the field. Your honest responses will directly build the evidence base for creating structured AI safety pathways in Nigeria.</p>
     <div>
-      <div class="badge"><div class="dot" style="background:var(--teal)"></div> 6–8 minutes</div>
-      <div class="badge"><div class="dot" style="background:var(--gold)"></div> Anonymous</div>
-      <div class="badge"><div class="dot" style="background:#6E76FF"></div> Nigerian Students &amp; Professionals</div>
+      <span class="badge"><span class="dot" style="background:var(--teal)"></span> 6&#8211;8 minutes</span>
+      <span class="badge"><span class="dot" style="background:var(--gold)"></span> Anonymous</span>
+      <span class="badge"><span class="dot" style="background:#6E76FF"></span> Nigerian Students &amp; Professionals</span>
     </div>
   </div>
 
@@ -158,520 +166,450 @@
 
   <div class="footer">
     <div class="footer-org">AI Safety Hub Nigeria</div>
-    <div class="footer-info">aisafetyhubng@gmail.com · linkedin.com/company/aisafetyhubng · @aisafetyhubng</div>
+    <div class="footer-inf">aisafetyhubng@gmail.com &middot; linkedin.com/company/aisafetyhubng &middot; @aisafetyhubng</div>
   </div>
 
 </div>
 </div>
 
 <script>
-// ─── State ────────────────────────────────────────────────────────────────────
-let step = 0;
-let answers = {};
-let submitting = false;
-const TOTAL_STEPS = 5;
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbygiT9lzCgKfagkikbSHekOr3FMvdK7Ye89qrJQ01ge7eUVLojLU3UpVW7yCmxtASWxOA/exec";
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-function setAnswer(id, val) {
-  answers[id] = val;
+// ── State ─────────────────────────────────────────────────────────────────────
+var step = 0;
+var answers = {};
+var submitting = false;
+var TOTAL = 5;
+
+// ── Utility ───────────────────────────────────────────────────────────────────
+function h(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function setAnswer(key, val) {
+  answers[key] = val;
   render();
 }
 
-function toggleCheckbox(id, opt) {
-  const current = answers[id] || [];
-  answers[id] = current.includes(opt) ? current.filter(v => v !== opt) : [...current, opt];
+function toggleCb(key, val) {
+  var arr = answers[key] || [];
+  var idx = arr.indexOf(val);
+  if (idx === -1) { answers[key] = arr.concat([val]); }
+  else { answers[key] = arr.filter(function(v) { return v !== val; }); }
   render();
 }
 
-function isStepComplete() {
-  if (step === 1) {
-    return ['respondent_type','level','discipline','institution_location'].every(k => !!answers[k]);
-  }
-  if (step === 2) {
-    return ['s1_q1','s1_q2','s1_q3','s1_q4'].every(k => answers[k] !== undefined && answers[k] !== '');
-  }
-  if (step === 3) {
-    const base = ['s2_q1','s2_q2','s2_q3'].every(k => answers[k] !== undefined && answers[k] !== '');
-    const cb = (answers['s2_q4'] || []).length > 0;
-    return base && cb;
-  }
-  if (step === 4) {
-    const base = ['s3_q1','s3_q2','s3_q4','s3_q5'].every(k => answers[k] !== undefined && answers[k] !== '');
-    const cb = (answers['s3_q3'] || []).length > 0;
-    return base && cb;
-  }
-  if (step === 5) {
-    return !!answers['apex_interest'];
-  }
-  return true;
-}
-
-// ─── Question renderers ───────────────────────────────────────────────────────
-function renderLikert(id, options) {
-  return options.map(opt => `
-    <div class="opt ${answers[id] === opt ? 'selected' : ''}" onclick="setAnswer(${JSON.stringify(id)}, ${JSON.stringify(opt)})">
-      <div class="radio">${answers[id] === opt ? '<div class="radio-dot"></div>' : ''}</div>
-      <span class="opt-text">${opt}</span>
-    </div>`).join('');
-}
-
-function renderScale(id, minLabel, maxLabel) {
-  const btns = [1,2,3,4,5].map(n => `
-    <button class="scale-btn ${answers[id] === n ? 'selected' : ''}" onclick="setAnswer(${JSON.stringify(id)}, ${n})">${n}</button>`).join('');
-  return `
-    <div class="scale-row">${btns}</div>
-    <div class="scale-labels">
-      <span class="scale-lbl">${minLabel}</span>
-      <span class="scale-lbl">${maxLabel}</span>
-    </div>`;
-}
-
-function renderCheckbox(id, options) {
-  return '<div class="qsub">Select all that apply</div>' +
-    options.map(opt => {
-      const checked = (answers[id] || []).includes(opt);
-      return `
-        <div class="opt ${checked ? 'selected' : ''}" onclick="toggleCheckbox(${JSON.stringify(id)}, ${JSON.stringify(opt)})">
-          <div class="cbox">${checked ? '&#10003;' : ''}</div>
-          <span class="opt-text">${opt}</span>
-        </div>`;
-    }).join('');
-}
-
-function renderSelect(id, options) {
-  const opts = options.map(o => `<option value="${o}" ${answers[id] === o ? 'selected' : ''}>${o}</option>`).join('');
-  return `
-    <div class="sel-wrap">
-      <select onchange="setAnswer(${JSON.stringify(id)}, this.value)">
-        <option value="">Select your state&hellip;</option>
-        ${opts}
-      </select>
-      <div class="sel-arrow">&#9662;</div>
-    </div>`;
-}
-
-function renderText(id, placeholder) {
-  const val = (answers[id] || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return `<textarea placeholder="${placeholder}" oninput="setAnswer(${JSON.stringify(id)}, this.value)">${val}</textarea>`;
-}
-
-function renderEmail(id, placeholder) {
-  const val = (answers[id] || '');
-  return `<input type="email" placeholder="${placeholder}" value="${val}" oninput="setAnswer(${JSON.stringify(id)}, this.value)" />`;
-}
-
-function opt(label) { return `<span style="color:var(--faint);font-size:12px;font-weight:400">(optional)</span>`; }
-
-// ─── Step 0: Intro ────────────────────────────────────────────────────────────
-function renderIntro() {
-  return `
-    <div class="card">
-      <div class="sec-num">About This Survey</div>
-      <div class="sec-title" style="margin-bottom:16px">Why this matters — and why we are asking</div>
-      <div class="callout">
-        <div class="callout-lbl">What is AI Safety?</div>
-        <div class="callout-text">
-          AI safety is the field of research, policy, and governance dedicated to ensuring that artificial intelligence systems are developed and deployed in ways that are safe, beneficial, and aligned with human values. It asks: How do we ensure powerful AI systems do what we actually intend? How do we prevent AI from being used to cause harm? Who decides what AI is built for, and on whose terms?
-          <br/><br/>
-          Globally, AI is already reshaping healthcare, finance, law enforcement, elections, and education — often in ways that disproportionately affect communities in the Global South. In Nigeria, AI systems are embedded in financial inclusion platforms, content moderation, and public services, yet Nigeria has no dedicated AI Safety Institute and significant regulatory gaps. The frameworks governing these systems are being written largely without African input.
-          <br/><br/>
-          In Africa, the stakes are especially high. Populations speaking minority languages or living in under-resourced communities face amplified risks from AI systems never designed with them in mind. Getting AI safety right is not a concern for wealthy nations alone — it is urgent for Nigeria and the entire continent.
-        </div>
-      </div>
-      <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:16px">
-        Despite this urgency, Nigerian and African students and professionals are almost entirely absent from the global AI safety field. We believe the main reason is not lack of talent or interest — it is the absence of a structured, locally grounded entry point. This survey tests that belief directly.
-      </p>
-      <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:16px">
-        It covers three specific questions: Does AI safety feel too distant or unclear from a Nigerian context? Do people attempt fellowships without adequate preparation? And do motivated individuals simply never find their way into the pipeline at all?
-      </p>
-      <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:28px">
-        Your responses are anonymous and will directly shape the design of the <strong style="color:var(--text)">AI Safety Pathways Exploration Programme (APEx)</strong> — a free, structured programme for Nigerian students and young professionals run by AI Safety Hub Nigeria.
-      </p>
-      <div style="background:rgba(0,168,157,0.05);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:28px">
-        <div style="font-size:11px;font-weight:600;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px">Who should take this survey</div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.7">Current or recent tertiary students and young professionals based in Nigeria — any level, any discipline.</div>
-      </div>
-      <button class="btn-full" onclick="goTo(1)">Begin the Survey &#8594;</button>
-    </div>`;
-}
-
-// ─── Step 1: Demographics ─────────────────────────────────────────────────────
-function renderDemographics() {
-  const complete = isStepComplete();
-  const states = ['Abia','Adamawa','Akwa Ibom','Anambra','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Edo','Ekiti','Enugu','FCT Abuja','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara','Outside Nigeria'];
-  return `
-    <div class="card">
-      <div class="sec-num">Background</div>
-      <div class="sec-title">A bit about you</div>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.65">This helps us understand who is responding. All questions are anonymous.</p>
-
-      <div class="qblock">
-        <div class="qlabel">Are you a student or a young professional?</div>
-        ${renderLikert('respondent_type', [
-          'Student (currently enrolled)',
-          'Young Professional (graduated, currently working)'
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">What is your current level of study or most recent qualification?</div>
-        ${renderLikert('level', [
-          'Undergraduate (Year 1&ndash;2)',
-          'Undergraduate (Year 3&ndash;4)',
-          'Final Year (undergraduate)',
-          'Postgraduate &mdash; Masters',
-          'Postgraduate &mdash; PhD',
-          'Recently graduated (within 2 years)',
-          'Graduated (2+ years ago)'
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">What is your primary field of study or professional background?</div>
-        ${renderLikert('discipline', [
-          'Computer Science / Engineering',
-          'Law / Political Science',
-          'Economics / Business',
-          'Social Sciences / Humanities',
-          'Natural Sciences',
-          'Medicine / Public Health',
-          'Other'
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">Which state in Nigeria is your institution or organisation based?</div>
-        ${renderSelect('institution_location', states)}
-      </div>
-
-      <div class="nav-row">
-        <button class="btn-back" onclick="goTo(0)">&#8592; Back</button>
-        <button class="btn-next" ${complete ? '' : 'disabled'} onclick="goTo(2)">Continue &#8594;</button>
-      </div>
-    </div>`;
-}
-
-// ─── Step 2: Section 1 — Clarity and Proximity ───────────────────────────────
-function renderSection1() {
-  const complete = isStepComplete();
-  return `
-    <div class="card">
-      <div class="sec-num">Section 1 of 3</div>
-      <div class="sec-title">Clarity and Proximity</div>
-      <div class="hyp-box">"Students and professionals disengage from AI safety because the field feels too distant or unclear from their context in Nigeria."</div>
-
-      <div class="qblock">
-        <div class="qlabel">Before today, how would you describe your understanding of what "AI safety" actually involves?</div>
-        ${renderLikert('s1_q1', [
-          'I had no idea what it was',
-          "I had heard the term but couldn't define it clearly",
-          'I had a vague sense but not enough to act on it',
-          'I understood it reasonably well',
-          'I understood it well and was already engaged'
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">When you first encountered AI safety content (articles, research, organisations), how relevant did it feel to your life and context in Nigeria?</div>
-        ${renderScale('s1_q2', 'Not at all relevant', 'Very relevant')}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">How much did the geographic distance between Nigeria and the main AI safety hubs (US, UK, Europe) affect your engagement with the field?</div>
-        ${renderLikert('s1_q3', [
-          'A great deal — it made the field feel inaccessible',
-          'Somewhat — a barrier but not the only one',
-          'A little — I noticed it but worked around it',
-          'Not at all — location did not affect my interest'
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">If you ever stepped back from AI safety, what was the main reason?</div>
-        ${renderLikert('s1_q4', [
-          'I was never interested in the first place',
-          'The field felt too technical or abstract for me',
-          "I couldn't see how to get involved from Nigeria",
-          "I didn't know where to start",
-          'I am still interested and engaged',
-          'Other'
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">In your own words: what has been the most confusing or unclear thing about AI safety as a field, if anything? ${opt()}</div>
-        ${renderText('s1_q5', "You can say \"Nothing was unclear\" if that's the case\u2026")}
-      </div>
-
-      <div class="nav-row">
-        <button class="btn-back" onclick="goTo(1)">&#8592; Back</button>
-        <button class="btn-next" ${complete ? '' : 'disabled'} onclick="goTo(3)">Continue &#8594;</button>
-      </div>
-    </div>`;
-}
-
-// ─── Step 3: Section 2 — Fellowship Applications and Readiness ───────────────
-function renderSection2() {
-  const complete = isStepComplete();
-  return `
-    <div class="card">
-      <div class="sec-num">Section 2 of 3</div>
-      <div class="sec-title">Fellowship Applications and Readiness</div>
-      <div class="hyp-box">"People rush into advanced fellowship applications without the foundation to succeed, reinforcing the false impression that Nigerians are not competitive."</div>
-
-      <div class="qblock">
-        <div class="qlabel">Have you ever applied to an AI safety or AI governance fellowship, programme, or research opportunity?</div>
-        ${renderLikert('s2_q1', [
-          'Yes, and I was accepted',
-          'Yes, and I was not accepted',
-          'Yes, more than once without success',
-          'No, but I seriously considered it',
-          'No — I was not aware any existed',
-          "No — I didn't feel qualified enough to try"
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">How prepared were you — or do you feel you are — for what AI safety programmes expect of applicants?</div>
-        ${renderScale('s2_q2', 'Not prepared at all', 'Very well prepared')}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">Before applying (or considering applying), how clearly did you understand what AI safety work involves day-to-day?</div>
-        ${renderLikert('s2_q3', [
-          'Not at all — I was guessing',
-          'I had a rough idea but significant gaps',
-          'I understood the basics but not the specifics',
-          'I had a solid understanding',
-          'I had a deep understanding'
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">Which of these have you done before engaging with AI safety opportunities?</div>
-        ${renderCheckbox('s2_q4', [
-          'Read introductory AI safety material (AGI Safety Fundamentals, 80k Hours, etc.)',
-          'Engaged with the AI safety research community online',
-          'Spoken to someone already working in AI safety',
-          'Taken an online course on AI safety or governance',
-          'None of the above',
-          "I haven't engaged with any opportunity yet"
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">What would have made you feel more ready before engaging with AI safety opportunities? ${opt()}</div>
-        ${renderText('s2_q5', 'e.g. better foundational resources, a local community, mentorship, clearer career pathways\u2026')}
-      </div>
-
-      <div class="nav-row">
-        <button class="btn-back" onclick="goTo(2)">&#8592; Back</button>
-        <button class="btn-next" ${complete ? '' : 'disabled'} onclick="goTo(4)">Continue &#8594;</button>
-      </div>
-    </div>`;
-}
-
-// ─── Step 4: Section 3 — Finding the Pipeline ────────────────────────────────
-function renderSection3() {
-  const complete = isStepComplete();
-  return `
-    <div class="card">
-      <div class="sec-num">Section 3 of 3</div>
-      <div class="sec-title">Finding the Pipeline</div>
-      <div class="hyp-box">"Many motivated students and professionals never find their way into the AI safety pipeline at all — not because they lack interest, but because no structured local entry point exists for them."</div>
-
-      <div class="qblock">
-        <div class="qlabel">How interested are you in contributing to AI safety or AI governance work?</div>
-        ${renderScale('s3_q1', 'Not interested', 'Deeply interested')}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">Are you currently active in any AI safety community, programme, or research project?</div>
-        ${renderLikert('s3_q2', [
-          'Yes, actively — it is a core part of my work or studies',
-          'Somewhat — I follow the field but am not formally involved',
-          'I was previously but am no longer active',
-          "No — I want to be but haven't found a way in",
-          "No — I am still figuring out if I want to be"
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">What has been your single biggest barrier to engaging more seriously with AI safety?</div>
-        ${renderCheckbox('s3_q3', [
-          "I don't know where to start",
-          'The field feels too remote from my context',
-          "I don't have the right technical background",
-          "I don't know anyone else working in this space in Nigeria",
-          'There is no local community or programme I could join',
-          "I haven't had enough time or support",
-          'Financial barriers (travel, applications, costs)',
-          'I have no major barriers — I am already engaged'
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">Before this survey, how aware were you of AI safety fellowships or programmes open to Nigerian or African students and professionals?</div>
-        ${renderLikert('s3_q4', [
-          'Completely unaware',
-          "Had heard of one or two but didn't know details",
-          'Somewhat aware — knew a few existed',
-          'Well aware — I knew several and had looked into them'
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">If a free, structured, 3&ndash;4 week virtual programme existed to help Nigerian students and young professionals explore AI safety and find their best fit — would you have joined it earlier?</div>
-        ${renderLikert('s3_q5', [
-          'Definitely yes',
-          'Probably yes',
-          'Not sure',
-          'Probably not',
-          'Definitely not'
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">Anything else you want us to know about your experience trying to engage with AI safety from Nigeria? ${opt()}</div>
-        ${renderText('s3_q6', 'Any experience, frustration, or insight — we read every response.')}
-      </div>
-
-      <div class="nav-row">
-        <button class="btn-back" onclick="goTo(3)">&#8592; Back</button>
-        <button class="btn-next" ${complete ? '' : 'disabled'} onclick="goTo(5)">Continue &#8594;</button>
-      </div>
-    </div>`;
-}
-
-// ─── Step 5: APEx Programme ───────────────────────────────────────────────────
-function renderAPEx() {
-  const complete = isStepComplete();
-  const showEmail = answers['wants_notification'] === 'Yes, notify me';
-  return `
-    <div class="card">
-      <div class="sec-num">APEx Programme</div>
-      <div class="sec-title">Your pathway into AI safety</div>
-      <div class="callout">
-        <div class="callout-lbl">About APEx</div>
-        <div class="callout-text">APEx — the AI Safety Pathways Exploration Programme — is a free, structured virtual programme by AI Safety Hub Nigeria for Nigerian students and young professionals who want to explore AI safety and governance and build toward high-impact careers in the field. No prior technical background required.</div>
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">How interested would you be in joining a free structured programme like APEx?</div>
-        ${renderLikert('apex_interest', [
-          'Not interested',
-          'Possibly interested — I would want more details first',
-          'Interested — I would apply if it was available now',
-          'Very interested — I am actively looking for something like this'
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">What format would work best for you? ${opt()}</div>
-        ${renderLikert('preferred_format', [
-          'Fully self-paced online',
-          'Live cohort sessions (scheduled Zoom/Meet calls)',
-          'A mix of self-paced and live sessions',
-          'In-person workshops'
-        ])}
-      </div>
-
-      <div class="qblock">
-        <div class="qlabel">Would you like us to notify you when APEx applications open? ${opt()}</div>
-        ${renderLikert('wants_notification', ['Yes, notify me','No, thank you'])}
-      </div>
-
-      ${showEmail ? `
-      <div class="qblock">
-        <div class="qlabel">Your email address ${opt()}</div>
-        ${renderEmail('email', 'you@example.com')}
-        <p style="font-size:11px;color:var(--faint);margin-top:6px;font-style:italic">We will only use this to send one notification when APEx opens. We do not share your data.</p>
-      </div>` : ''}
-
-      <div id="form-error" class="error-box" style="display:none"></div>
-      <div class="nav-row">
-        <button class="btn-back" onclick="goTo(4)">&#8592; Back</button>
-        <button class="btn-next" id="submit-btn" ${complete && !submitting ? '' : 'disabled'} onclick="submitForm()">
-          ${submitting ? '<span class="spinner"></span> Submitting&hellip;' : 'Submit Response &#10003;'}
-        </button>
-      </div>
-    </div>`;
-}
-
-// ─── Success ──────────────────────────────────────────────────────────────────
-function renderSuccess() {
-  return `
-    <div class="success-card">
-      <div class="success-ring">&#10022;</div>
-      <div class="success-title">Thank you for responding</div>
-      <p class="success-text">Your response has been recorded and will contribute to the evidence base for building structured AI safety pathways for Nigerian students and young professionals through the APEx programme.</p>
-      <div class="community-box">
-        <div class="community-lbl">Stay connected</div>
-        <div class="community-text">Want early access to APEx and updates on AI safety opportunities for Nigerians? Send us a message on LinkedIn to join our WhatsApp community — where we share opportunities, resources, and programme updates before anywhere else.</div>
-      </div>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <a class="btn-teal" href="https://www.linkedin.com/company/aisafetyhubng" target="_blank" rel="noreferrer">Message us on LinkedIn &#8594;</a>
-        <a class="btn-ghost" href="mailto:aisafetyhubng@gmail.com">aisafetyhubng@gmail.com</a>
-      </div>
-    </div>`;
-}
-
-// ─── Navigation ───────────────────────────────────────────────────────────────
 function goTo(n) {
   step = n;
   render();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ─── Submit ───────────────────────────────────────────────────────────────────
-async function submitForm() {
-  if (submitting) return;
-  submitting = true;
-  render();
-
-  const payload = {};
-  Object.entries(answers).forEach(([k, v]) => {
-    payload[k] = Array.isArray(v) ? v.join(' | ') : String(v != null ? v : '');
-  });
-  payload['submitted_at'] = new Date().toISOString();
-
-  try {
-    if (!SCRIPT_URL || SCRIPT_URL === 'PASTE_YOUR_APPS_SCRIPT_URL_HERE') {
-      console.warn('No SCRIPT_URL — dev mode.');
-      step = 6; submitting = false; render(); return;
+// ── Event delegation — one listener handles ALL clicks ────────────────────────
+document.addEventListener('click', function(e) {
+  var el = e.target;
+  // Walk up the DOM to find the nearest element with data-action
+  while (el && el !== document.body) {
+    var action = el.getAttribute('data-action');
+    if (action) {
+      var key = el.getAttribute('data-key') || '';
+      var val = el.getAttribute('data-val') || '';
+      if (action === 'select')  { setAnswer(key, val); return; }
+      if (action === 'toggle')  { toggleCb(key, val);  return; }
+      if (action === 'scale')   { setAnswer(key, parseInt(val, 10)); return; }
+      if (action === 'goto')    { goTo(parseInt(val, 10)); return; }
+      if (action === 'submit')  {
+        if (!submitting) submitForm();
+        return;
+      }
     }
-    const params = new URLSearchParams(payload);
-    await fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params.toString()
-    });
-    step = 6;
-  } catch (err) {
-    const errBox = document.getElementById('form-error');
-    if (errBox) {
-      errBox.style.display = 'block';
-      errBox.textContent = 'Something went wrong. Please check your connection and try again.';
-    }
+    el = el.parentElement;
   }
-  submitting = false;
-  render();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ── Validation ────────────────────────────────────────────────────────────────
+function valid() {
+  if (step === 1) return ['respondent_type','level','discipline','institution_location'].every(function(k) { return !!answers[k]; });
+  if (step === 2) return ['s1_q1','s1_q2','s1_q3','s1_q4'].every(function(k) { return answers[k] !== undefined && answers[k] !== ''; });
+  if (step === 3) {
+    var base = ['s2_q1','s2_q2','s2_q3'].every(function(k) { return answers[k] !== undefined && answers[k] !== ''; });
+    return base && (answers['s2_q4'] || []).length > 0;
+  }
+  if (step === 4) {
+    var base2 = ['s3_q1','s3_q2','s3_q4','s3_q5'].every(function(k) { return answers[k] !== undefined && answers[k] !== ''; });
+    return base2 && (answers['s3_q3'] || []).length > 0;
+  }
+  if (step === 5) return !!answers['apex_interest'];
+  return true;
 }
 
-// ─── Main render ──────────────────────────────────────────────────────────────
+// ── Builders ──────────────────────────────────────────────────────────────────
+function radio(key, val) {
+  var sel = answers[key] === val ? ' selected' : '';
+  return '<div class="opt' + sel + '" data-action="select" data-key="' + h(key) + '" data-val="' + h(val) + '">'
+    + '<div class="radio"><div class="radio-dot"></div></div>'
+    + '<span class="opt-text">' + h(val) + '</span>'
+    + '</div>';
+}
+
+function checkbox(key, val) {
+  var arr = answers[key] || [];
+  var sel = arr.indexOf(val) !== -1 ? ' selected' : '';
+  return '<div class="opt' + sel + '" data-action="toggle" data-key="' + h(key) + '" data-val="' + h(val) + '">'
+    + '<div class="cbox">' + (sel ? '&#10003;' : '') + '</div>'
+    + '<span class="opt-text">' + h(val) + '</span>'
+    + '</div>';
+}
+
+function scale(key, minLbl, maxLbl) {
+  var btns = '';
+  for (var i = 1; i <= 5; i++) {
+    var sel = answers[key] === i ? ' selected' : '';
+    btns += '<button class="scale-btn' + sel + '" data-action="scale" data-key="' + h(key) + '" data-val="' + i + '">' + i + '</button>';
+  }
+  return '<div class="scale-row">' + btns + '</div>'
+    + '<div class="scale-labels"><span class="scale-lbl">' + h(minLbl) + '</span><span class="scale-lbl">' + h(maxLbl) + '</span></div>';
+}
+
+function textarea(key, placeholder) {
+  var val = answers[key] || '';
+  return '<textarea placeholder="' + h(placeholder) + '" id="ta_' + key + '">' + h(val) + '</textarea>';
+}
+
+function emailInput(key) {
+  var val = answers[key] || '';
+  return '<input type="email" placeholder="you@example.com" id="em_' + key + '" value="' + h(val) + '" />';
+}
+
+function optLbl() {
+  return ' <span class="opt-lbl">(optional)</span>';
+}
+
+function navRow(backTo, nextTo, isSubmit) {
+  var isOk = valid();
+  var nextBtn = isSubmit
+    ? '<button class="btn-next"' + (isOk && !submitting ? ' data-action="submit"' : ' disabled') + '>'
+      + (submitting ? '<span class="spinner"></span> Submitting&hellip;' : 'Submit Response &#10003;')
+      + '</button>'
+    : '<button class="btn-next"' + (isOk ? ' data-action="goto" data-val="' + nextTo + '"' : ' disabled') + '>Continue &#8594;</button>';
+  return '<div class="nav-row">'
+    + '<button class="btn-back" data-action="goto" data-val="' + backTo + '">&#8592; Back</button>'
+    + nextBtn
+    + '</div>';
+}
+
+// ── Step renderers ────────────────────────────────────────────────────────────
+function renderIntro() {
+  return '<div class="card">'
+    + '<div class="sec-num">About This Survey</div>'
+    + '<div class="sec-title" style="margin-bottom:16px">Why this matters &#8212; and why we are asking</div>'
+    + '<div class="callout">'
+      + '<div class="callout-lbl">What is AI Safety?</div>'
+      + '<div class="callout-txt">'
+        + 'AI safety is the field of research, policy, and governance dedicated to ensuring that artificial intelligence systems are developed and deployed in ways that are safe, beneficial, and aligned with human values. It asks: How do we ensure powerful AI systems do what we actually intend? How do we prevent AI from being used to cause harm? Who decides what AI is built for, and on whose terms?'
+        + '<br/><br/>'
+        + 'Globally, AI is already reshaping healthcare, finance, law enforcement, elections, and education &#8212; often in ways that disproportionately affect communities in the Global South. In Nigeria, AI systems are embedded in financial inclusion platforms, content moderation, and public services, yet Nigeria has no dedicated AI Safety Institute and significant regulatory gaps. The frameworks governing these systems are being written largely without African input.'
+        + '<br/><br/>'
+        + 'In Africa, the stakes are especially high. Populations speaking minority languages or living in under-resourced communities face amplified risks from AI systems never designed with them in mind. Getting AI safety right is not a concern for wealthy nations alone &#8212; it is urgent for Nigeria and the entire continent.'
+      + '</div>'
+    + '</div>'
+    + '<p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:16px">Despite this urgency, Nigerian and African students and professionals are almost entirely absent from the global AI safety field. We believe the main reason is not lack of talent or interest &#8212; it is the absence of a structured, locally grounded entry point. This survey tests that belief directly.</p>'
+    + '<p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:16px">It covers three specific questions: Does AI safety feel too distant or unclear from a Nigerian context? Do people attempt fellowships without adequate preparation? And do motivated individuals simply never find their way into the pipeline at all?</p>'
+    + '<p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:28px">Your responses are anonymous and will directly shape the design of the <strong style="color:var(--text)">AI Safety Pathways Exploration Programme (APEx)</strong> &#8212; a free, structured programme for Nigerian students and young professionals run by AI Safety Hub Nigeria.</p>'
+    + '<div style="background:rgba(0,168,157,0.05);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:28px">'
+      + '<div style="font-size:11px;font-weight:600;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px">Who should take this survey</div>'
+      + '<div style="font-size:13px;color:var(--muted);line-height:1.7">Current or recent tertiary students and young professionals based in Nigeria &#8212; any level, any discipline.</div>'
+    + '</div>'
+    + '<button class="btn-full" data-action="goto" data-val="1">Begin the Survey &#8594;</button>'
+    + '</div>';
+}
+
+function renderDemographics() {
+  var states = ['Abia','Adamawa','Akwa Ibom','Anambra','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Edo','Ekiti','Enugu','FCT Abuja','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara','Outside Nigeria'];
+  var stateOpts = '<option value="">Select your state&hellip;</option>';
+  for (var i = 0; i < states.length; i++) {
+    stateOpts += '<option value="' + h(states[i]) + '"' + (answers['institution_location'] === states[i] ? ' selected' : '') + '>' + h(states[i]) + '</option>';
+  }
+
+  return '<div class="card">'
+    + '<div class="sec-num">Background</div>'
+    + '<div class="sec-title">A bit about you</div>'
+    + '<p style="font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.65">This helps us understand who is responding. All questions are anonymous.</p>'
+
+    + '<div class="qblock"><div class="qlabel">Are you a student or a young professional?</div>'
+    + radio('respondent_type', 'Student (currently enrolled)')
+    + radio('respondent_type', 'Young Professional (graduated, currently working)')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">What is your current level of study or most recent qualification?</div>'
+    + radio('level', 'Undergraduate (Year 1-2)')
+    + radio('level', 'Undergraduate (Year 3-4)')
+    + radio('level', 'Final Year (undergraduate)')
+    + radio('level', 'Postgraduate - Masters')
+    + radio('level', 'Postgraduate - PhD')
+    + radio('level', 'Recently graduated (within 2 years)')
+    + radio('level', 'Graduated (2+ years ago)')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">What is your primary field of study or professional background?</div>'
+    + radio('discipline', 'Computer Science / Engineering')
+    + radio('discipline', 'Law / Political Science')
+    + radio('discipline', 'Economics / Business')
+    + radio('discipline', 'Social Sciences / Humanities')
+    + radio('discipline', 'Natural Sciences')
+    + radio('discipline', 'Medicine / Public Health')
+    + radio('discipline', 'Other')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">Which state in Nigeria is your institution or organisation based?</div>'
+    + '<div class="sel-wrap"><select id="sel_location"><option value="">Select your state&hellip;</option>' + stateOpts + '</select><div class="sel-arrow">&#9662;</div></div>'
+    + '</div>'
+
+    + navRow(0, 2, false)
+    + '</div>';
+}
+
+function renderSection1() {
+  return '<div class="card">'
+    + '<div class="sec-num">Section 1 of 3</div>'
+    + '<div class="sec-title">Clarity and Proximity</div>'
+    + '<div class="hyp-box">"Students and professionals disengage from AI safety because the field feels too distant or unclear from their context in Nigeria."</div>'
+
+    + '<div class="qblock"><div class="qlabel">Before today, how would you describe your understanding of what "AI safety" actually involves?</div>'
+    + radio('s1_q1', 'I had no idea what it was')
+    + radio('s1_q1', 'I had heard the term but could not define it clearly')
+    + radio('s1_q1', 'I had a vague sense but not enough to act on it')
+    + radio('s1_q1', 'I understood it reasonably well')
+    + radio('s1_q1', 'I understood it well and was already engaged')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">When you first encountered AI safety content (articles, research, organisations), how relevant did it feel to your life and context in Nigeria?</div>'
+    + scale('s1_q2', 'Not at all relevant', 'Very relevant')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">How much did the geographic distance between Nigeria and the main AI safety hubs (US, UK, Europe) affect your engagement with the field?</div>'
+    + radio('s1_q3', 'A great deal - it made the field feel inaccessible')
+    + radio('s1_q3', 'Somewhat - a barrier but not the only one')
+    + radio('s1_q3', 'A little - I noticed it but worked around it')
+    + radio('s1_q3', 'Not at all - location did not affect my interest')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">If you ever stepped back from AI safety, what was the main reason?</div>'
+    + radio('s1_q4', 'I was never interested in the first place')
+    + radio('s1_q4', 'The field felt too technical or abstract for me')
+    + radio('s1_q4', 'I could not see how to get involved from Nigeria')
+    + radio('s1_q4', 'I did not know where to start')
+    + radio('s1_q4', 'I am still interested and engaged')
+    + radio('s1_q4', 'Other')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">In your own words: what has been the most confusing or unclear thing about AI safety as a field, if anything?' + optLbl() + '</div>'
+    + textarea('s1_q5', 'You can say "Nothing was unclear" if that is the case...')
+    + '</div>'
+
+    + navRow(1, 3, false)
+    + '</div>';
+}
+
+function renderSection2() {
+  return '<div class="card">'
+    + '<div class="sec-num">Section 2 of 3</div>'
+    + '<div class="sec-title">Fellowship Applications and Readiness</div>'
+    + '<div class="hyp-box">"People rush into advanced fellowship applications without the foundation to succeed, reinforcing the false impression that Nigerians are not competitive."</div>'
+
+    + '<div class="qblock"><div class="qlabel">Have you ever applied to an AI safety or AI governance fellowship, programme, or research opportunity?</div>'
+    + radio('s2_q1', 'Yes, and I was accepted')
+    + radio('s2_q1', 'Yes, and I was not accepted')
+    + radio('s2_q1', 'Yes, more than once without success')
+    + radio('s2_q1', 'No, but I seriously considered it')
+    + radio('s2_q1', 'No - I was not aware any existed')
+    + radio('s2_q1', 'No - I did not feel qualified enough to try')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">How prepared were you - or do you feel you are - for what AI safety programmes expect of applicants?</div>'
+    + scale('s2_q2', 'Not prepared at all', 'Very well prepared')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">Before applying (or considering applying), how clearly did you understand what AI safety work involves day-to-day?</div>'
+    + radio('s2_q3', 'Not at all - I was guessing')
+    + radio('s2_q3', 'I had a rough idea but significant gaps')
+    + radio('s2_q3', 'I understood the basics but not the specifics')
+    + radio('s2_q3', 'I had a solid understanding')
+    + radio('s2_q3', 'I had a deep understanding')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">Which of these have you done before engaging with AI safety opportunities?</div>'
+    + '<div class="qsub">Select all that apply</div>'
+    + checkbox('s2_q4', 'Read introductory AI safety material (AGI Safety Fundamentals, 80k Hours, etc.)')
+    + checkbox('s2_q4', 'Engaged with the AI safety research community online')
+    + checkbox('s2_q4', 'Spoken to someone already working in AI safety')
+    + checkbox('s2_q4', 'Taken an online course on AI safety or governance')
+    + checkbox('s2_q4', 'None of the above')
+    + checkbox('s2_q4', 'I have not engaged with any opportunity yet')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">What would have made you feel more ready before engaging with AI safety opportunities?' + optLbl() + '</div>'
+    + textarea('s2_q5', 'e.g. better foundational resources, a local community, mentorship, clearer career pathways...')
+    + '</div>'
+
+    + navRow(2, 4, false)
+    + '</div>';
+}
+
+function renderSection3() {
+  return '<div class="card">'
+    + '<div class="sec-num">Section 3 of 3</div>'
+    + '<div class="sec-title">Finding the Pipeline</div>'
+    + '<div class="hyp-box">"Many motivated students and professionals never find their way into the AI safety pipeline at all - not because they lack interest, but because no structured local entry point exists for them."</div>'
+
+    + '<div class="qblock"><div class="qlabel">How interested are you in contributing to AI safety or AI governance work?</div>'
+    + scale('s3_q1', 'Not interested', 'Deeply interested')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">Are you currently active in any AI safety community, programme, or research project?</div>'
+    + radio('s3_q2', 'Yes, actively - it is a core part of my work or studies')
+    + radio('s3_q2', 'Somewhat - I follow the field but am not formally involved')
+    + radio('s3_q2', 'I was previously but am no longer active')
+    + radio('s3_q2', 'No - I want to be but have not found a way in')
+    + radio('s3_q2', 'No - I am still figuring out if I want to be')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">What has been your single biggest barrier to engaging more seriously with AI safety?</div>'
+    + '<div class="qsub">Select all that apply</div>'
+    + checkbox('s3_q3', 'I do not know where to start')
+    + checkbox('s3_q3', 'The field feels too remote from my context')
+    + checkbox('s3_q3', 'I do not have the right technical background')
+    + checkbox('s3_q3', 'I do not know anyone else working in this space in Nigeria')
+    + checkbox('s3_q3', 'There is no local community or programme I could join')
+    + checkbox('s3_q3', 'I have not had enough time or support')
+    + checkbox('s3_q3', 'Financial barriers (travel, applications, costs)')
+    + checkbox('s3_q3', 'I have no major barriers - I am already engaged')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">Before this survey, how aware were you of AI safety fellowships or programmes open to Nigerian or African students and professionals?</div>'
+    + radio('s3_q4', 'Completely unaware')
+    + radio('s3_q4', 'Had heard of one or two but did not know details')
+    + radio('s3_q4', 'Somewhat aware - knew a few existed')
+    + radio('s3_q4', 'Well aware - I knew several and had looked into them')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">If a free, structured, 3-4 week virtual programme existed to help Nigerian students and young professionals explore AI safety and find their best fit - would you have joined it earlier?</div>'
+    + radio('s3_q5', 'Definitely yes')
+    + radio('s3_q5', 'Probably yes')
+    + radio('s3_q5', 'Not sure')
+    + radio('s3_q5', 'Probably not')
+    + radio('s3_q5', 'Definitely not')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">Anything else you want us to know about your experience trying to engage with AI safety from Nigeria?' + optLbl() + '</div>'
+    + textarea('s3_q6', 'Any experience, frustration, or insight - we read every response.')
+    + '</div>'
+
+    + navRow(3, 5, false)
+    + '</div>';
+}
+
+function renderAPEx() {
+  var emailBlock = '';
+  if (answers['wants_notification'] === 'Yes, notify me') {
+    emailBlock = '<div class="qblock"><div class="qlabel">Your email address' + optLbl() + '</div>'
+      + emailInput('email')
+      + '<p style="font-size:11px;color:var(--faint);margin-top:6px;font-style:italic">We will only use this to send one notification when APEx opens. We do not share your data.</p>'
+      + '</div>';
+  }
+
+  return '<div class="card">'
+    + '<div class="sec-num">APEx Programme</div>'
+    + '<div class="sec-title">Your pathway into AI safety</div>'
+    + '<div class="callout">'
+      + '<div class="callout-lbl">About APEx</div>'
+      + '<div class="callout-txt">APEx - the AI Safety Pathways Exploration Programme - is a free, structured virtual programme by AI Safety Hub Nigeria for Nigerian students and young professionals who want to explore AI safety and governance and build toward high-impact careers in the field. No prior technical background required.</div>'
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">How interested would you be in joining a free structured programme like APEx?</div>'
+    + radio('apex_interest', 'Not interested')
+    + radio('apex_interest', 'Possibly interested - I would want more details first')
+    + radio('apex_interest', 'Interested - I would apply if it was available now')
+    + radio('apex_interest', 'Very interested - I am actively looking for something like this')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">What format would work best for you?' + optLbl() + '</div>'
+    + radio('preferred_format', 'Fully self-paced online')
+    + radio('preferred_format', 'Live cohort sessions (scheduled Zoom/Meet calls)')
+    + radio('preferred_format', 'A mix of self-paced and live sessions')
+    + radio('preferred_format', 'In-person workshops')
+    + '</div>'
+
+    + '<div class="qblock"><div class="qlabel">Would you like us to notify you when APEx applications open?' + optLbl() + '</div>'
+    + radio('wants_notification', 'Yes, notify me')
+    + radio('wants_notification', 'No, thank you')
+    + '</div>'
+
+    + emailBlock
+
+    + '<div id="form-error" class="error-box" style="display:none"></div>'
+    + navRow(4, 6, true)
+    + '</div>';
+}
+
+function renderSuccess() {
+  return '<div class="success-card">'
+    + '<div class="success-ring">&#10022;</div>'
+    + '<div class="success-ttl">Thank you for responding</div>'
+    + '<p class="success-txt">Your response has been recorded and will contribute to the evidence base for building structured AI safety pathways for Nigerian students and young professionals through the APEx programme.</p>'
+    + '<div class="comm-box">'
+      + '<div class="comm-lbl">Stay connected</div>'
+      + '<div class="comm-txt">Want early access to APEx and updates on AI safety opportunities for Nigerians? Send us a message on LinkedIn to join our WhatsApp community &#8212; where we share opportunities, resources, and programme updates before anywhere else.</div>'
+    + '</div>'
+    + '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">'
+      + '<a class="btn-teal" href="https://www.linkedin.com/company/aisafetyhubng" target="_blank" rel="noreferrer">Message us on LinkedIn &#8594;</a>'
+      + '<a class="btn-ghost" href="mailto:aisafetyhubng@gmail.com">aisafetyhubng@gmail.com</a>'
+    + '</div>'
+    + '</div>';
+}
+
+// ── Textarea and select change handlers (attached after render) ───────────────
+function attachInputListeners() {
+  var textareas = ['s1_q5','s2_q5','s3_q6'];
+  for (var i = 0; i < textareas.length; i++) {
+    (function(key) {
+      var el = document.getElementById('ta_' + key);
+      if (el) {
+        el.addEventListener('input', function() { answers[key] = this.value; });
+      }
+    })(textareas[i]);
+  }
+  var sel = document.getElementById('sel_location');
+  if (sel) {
+    sel.addEventListener('change', function() {
+      setAnswer('institution_location', this.value);
+    });
+  }
+  var emailEl = document.getElementById('em_email');
+  if (emailEl) {
+    emailEl.addEventListener('input', function() { answers['email'] = this.value; });
+  }
+}
+
+// ── Main render ───────────────────────────────────────────────────────────────
 function render() {
-  const app = document.getElementById('app');
-  const pct = step >= 1 && step <= 5 ? Math.round(((step - 1) / TOTAL_STEPS) * 100) : 0;
+  var app = document.getElementById('app');
+  var pct = step >= 1 && step <= 5 ? Math.round(((step - 1) / TOTAL) * 100) : 0;
 
-  const progressHtml = step >= 1 && step <= 5 ? `
-    <div class="prog-wrap">
-      <div class="prog-label">Step ${step} of ${TOTAL_STEPS}</div>
-      <div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div>
-    </div>` : '';
+  var progress = '';
+  if (step >= 1 && step <= 5) {
+    progress = '<div class="prog-wrap">'
+      + '<div class="prog-label">Step ' + step + ' of ' + TOTAL + '</div>'
+      + '<div class="prog-track"><div class="prog-fill" style="width:' + pct + '%"></div></div>'
+      + '</div>';
+  }
 
-  let body = '';
+  var body = '';
   if      (step === 0) body = renderIntro();
   else if (step === 1) body = renderDemographics();
   else if (step === 2) body = renderSection1();
@@ -680,9 +618,51 @@ function render() {
   else if (step === 5) body = renderAPEx();
   else                 body = renderSuccess();
 
-  app.innerHTML = progressHtml + body;
+  app.innerHTML = progress + body;
+  attachInputListeners();
 }
 
+// ── Submit ────────────────────────────────────────────────────────────────────
+function submitForm() {
+  submitting = true;
+  render();
+
+  var payload = {};
+  var keys = Object.keys(answers);
+  for (var i = 0; i < keys.length; i++) {
+    var v = answers[keys[i]];
+    payload[keys[i]] = Array.isArray(v) ? v.join(' | ') : String(v != null ? v : '');
+  }
+  payload['submitted_at'] = new Date().toISOString();
+
+  var params = [];
+  var pkeys = Object.keys(payload);
+  for (var j = 0; j < pkeys.length; j++) {
+    params.push(encodeURIComponent(pkeys[j]) + '=' + encodeURIComponent(payload[pkeys[j]]));
+  }
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.join('&')
+  }).then(function() {
+    step = 6;
+    submitting = false;
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }).catch(function() {
+    var errBox = document.getElementById('form-error');
+    if (errBox) {
+      errBox.style.display = 'block';
+      errBox.textContent = 'Something went wrong. Please check your connection and try again.';
+    }
+    submitting = false;
+    render();
+  });
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
 render();
 </script>
 </body>

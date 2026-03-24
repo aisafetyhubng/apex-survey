@@ -2,7 +2,7 @@
 
 A short anonymous survey exploring AI safety awareness and barriers among Nigerian tertiary students.
 
-Built to generate evidence for the AI Safety Pathways Exploration Programme (APEx) — a free, structured 3–4 week virtual programme helping Nigerian students explore AI safety, find their best fit, and build a pathway into high-impact work in the field.
+Built to generate evidence for the AI Safety Pathways Exploration Programme (APEx) — a free, structured 3–4 week virtual programme helping Nigerian students and young professionals explore AI safety, find their best fit, and build a pathway into high-impact work in the field.
 
 **Survey:** [Live link here after deployment]
 
